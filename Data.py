@@ -6,6 +6,9 @@ class Data:
         self.x = x_in
         self.y = y_out
         self.target_emotion = target #by default, specifies which emotion we are targetting
+        
+    def to_vector(self):
+        return [self.x,self.y] 
     
     def set_binary_target(self, emotion):
         emotion_label = {'Anger':1, 'Disgust':2, 'Fear':3, 'Happiness':4, 'Sadness':5, 'Surprise':6}
