@@ -12,7 +12,7 @@ class Tree:
         else:
             self.nodeLabel = label
 
-    def.getKids(self):
+    def getKids(self):
         return self.kids
 
     def setKid(self, i, node):
@@ -20,6 +20,9 @@ class Tree:
             self.kids[i] = node
         else:
             raise Exception("Out of range")
+    def printTree(self):
+
+
 
 def leaf(x):
     return Tree(x, True)
