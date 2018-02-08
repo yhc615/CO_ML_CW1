@@ -6,6 +6,7 @@ class Tree:
     def __init__(self,label, isLeaf=False):
         self.nodeLabel = None
         self.nodekids = []
+        self.isLeaf = isLeaf
         self.leafLabel = None
         if isLeaf:
             self.leafLabel = label
@@ -21,7 +22,11 @@ class Tree:
         else:
             raise Exception("Out of range")
     def printTree(self):
-
+        if isLeaf:
+            print(leafLabel)
+        else:
+            print(self.nodeLabel)
+            map(lambda x: x.printTree(), self.kids)
 
 
 def leaf(x):
