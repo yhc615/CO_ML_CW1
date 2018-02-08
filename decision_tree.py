@@ -13,6 +13,15 @@ class Tree:
         else:
             self.nodeLabel = label
 
+    def getNodeLabel(self):
+        return self.nodeLabel
+
+    def getIsLeaf(self):
+        return self.isLeaf
+
+    def getLeafLabel(self):
+        return self.leafLabel
+
     def getKids(self):
         return self.nodeKids
 
@@ -22,7 +31,7 @@ class Tree:
         else:
             raise Exception("Out of range")
     def printTree(self):
-        print("InnerNode: {}".format(self.nodeLabel))
+        print("InnerNode: AU{}".format(self.nodeLabel+1))
         for k in self.nodeKids:
             if k.isLeaf:
                 print("--Leaf: {}".format(k.leafLabel))
@@ -36,4 +45,4 @@ def leaf(x):
     return Tree(x, True)
 
 def tree(x):
-    return Tree("AU{}".format(x+1))
+    return Tree(x)
