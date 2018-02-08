@@ -1,5 +1,3 @@
-import scipy.io
-
 class Data:
     
     def __init__(self, x_in, y_out, target='None'): #data_in passed as [<x_n>,<y_n>]
