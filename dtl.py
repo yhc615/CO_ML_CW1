@@ -4,6 +4,11 @@ def MAJORITY_VALUE(inp):
 	return max(inp, key=inp.count)
 
 def calcEntropy(p, n):
+	print(p,n)
+	if(not p or not n):
+		return 0
+	elif(p==n):
+		return 1;
 	return -(p/(p+n))*log2(p/(p+n))-(n/(p+n))*log2(n/(p+n))
 
 def CHOOSE_BEST_DECISION_ATTR(ex,attr,b_targets):
