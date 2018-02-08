@@ -36,4 +36,4 @@ def leaf(x):
     return Tree(x, True)
 
 def tree(x):
-    return Tree(x)
+    return Tree("AU{}".format(x+1))
