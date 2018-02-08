@@ -34,9 +34,7 @@ def DTL(examples, attributes, binary_targets):
 		return leaf(MAJORITY_VALUE(binary_targets))
 	else:
 		best_attribute = CHOOSE_BEST_DECISION_ATTR(examples,attributes,binary_targets)
-		print(best_attribute)
 		attributes.remove(best_attribute)
-		print(attributes)
 		root = tree(best_attribute)
 		for v in [0,1]:
 			v_examples, v_binary_targets = [e for e in examples if e[best_attribute]==v],[binary_targets[i] for i,e in enumerate(examples) if e[best_attribute]==v]
@@ -45,5 +43,4 @@ def DTL(examples, attributes, binary_targets):
 			else:
 				nodeToAdd = DTL(v_examples, attributes,v_binary_targets)
 			root.setKid(v, nodeToAdd)
-			print(root.getKids())
 		return root
