@@ -5,28 +5,31 @@ Decision-tree Class Definition
 class Tree:
     def __init__(self,label, isLeaf=False):
         self.nodeLabel = None
-        self.nodekids = []
+        self.nodeKids = [None,None]
         self.isLeaf = isLeaf
         self.leafLabel = None
-        if isLeaf:
+        if self.isLeaf:
             self.leafLabel = label
         else:
             self.nodeLabel = label
 
     def getKids(self):
-        return self.kids
+        return self.nodeKids
 
     def setKid(self, i, node):
-        if k in [0,1]:
-            self.kids[i] = node
+        if i in [0,1]:
+            self.nodeKids[i] = node
         else:
             raise Exception("Out of range")
     def printTree(self):
-        if isLeaf:
-            print(leafLabel)
-        else:
-            print(self.nodeLabel)
-            map(lambda x: x.printTree(), self.kids)
+        print("InnerNode: {}".format(self.nodeLabel))
+        for k in self.nodeKids:
+            if k.isLeaf:
+                print("--Leaf: {}".format(k.leafLabel))
+        for k in self.nodeKids:
+            if not k.isLeaf:
+                k.printTree()
+        
 
 
 def leaf(x):
