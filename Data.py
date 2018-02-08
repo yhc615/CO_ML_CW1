@@ -68,13 +68,3 @@ class Data:
             example_no += 1
             output += row + "\n"
         return output
-    
-    
-raw_data = scipy.io.loadmat('Data/noisydata_students.mat')
-data = Data(raw_data['x'][:10],raw_data['y'][:10])
-print(data)
-data.set_binary_target('Happiness')
-print(data)
-split_data = data.sort(41)
-print(split_data[0])
-print(split_data[1])
