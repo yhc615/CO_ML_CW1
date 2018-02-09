@@ -1,9 +1,5 @@
-import numpy
-#t is a tree
-#result is the output vector of the prediction : which emotion was predicted for each example row
-#if examples.y == predicted ---> TP or TN
-#if examples.y != predicted ---> FP or FN
-#one tree for each emotion : output either 1 (positive) or 0 (negative)
+#if actual == predicted ---> TP or TN
+#if actual != predicted ---> FP or FN
 
 def confusion_matx(actual, predicted):
     #emotion_label = {'Anger':1, 'Disgust':2, 'Fear':3, 'Happiness':4, 'Sadness':5, 'Surprise':6}
