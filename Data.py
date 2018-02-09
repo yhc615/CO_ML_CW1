@@ -8,14 +8,15 @@ class Data:
     def to_vector(self):
         return [self.x,self.y] 
     
-    def set_binary_target(self, emotion):
-        emotion_label = {'Anger':1, 'Disgust':2, 'Fear':3, 'Happiness':4, 'Sadness':5, 'Surprise':6}
+    def getTargetsForVal(self, emotion):
+        #emotion_label = {'Anger':1, 'Disgust':2, 'Fear':3, 'Happiness':4, 'Sadness':5, 'Surprise':6}
+        newData = [None]*len(self.y)
         for i in range(len(self.y)):
-            if self.y[i] == emotion_label[emotion]:
-                self.y[i] = 1
+            if self.y[i] == emotion:
+                newData[i] = 1
             else:
-                self.y[i] = 0
-            self.target_emotion = emotion
+                newData[i] = 0
+        return newData
     def sort(self, Au_label): #sort data on a particular Au label
         AU1_x=[] 
         AU1_y=[]
