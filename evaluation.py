@@ -1,7 +1,6 @@
-#result is the output vector of the prediction : which emotion was predicted for each example row
-#if examples.y == predicted ---> TP or TN
-#if examples.y != predicted ---> FP or FN
-#Vector of predicted outputs for the examples after all 6 trees are input as "predicted"
+#if actual == predicted ---> TP or TN
+#if actual != predicted ---> FP or FN
+#vector of predicted outputs for the examples after all 6 trees are input as "predicted"
 
 def confusion_matx(actual, predicted):
     #emotion_label = {'Anger':1, 'Disgust':2, 'Fear':3, 'Happiness':4, 'Sadness':5, 'Surprise':6}
