@@ -1,12 +1,10 @@
-import numpy
 #t is a tree
 #result is the output vector of the prediction : which emotion was predicted for each example row
 #if examples.y == predicted ---> TP or TN
 #if examples.y != predicted ---> FP or FN
 #one tree for each emotion : output either 1 (positive) or 0 (negative)
 
-def confusion_matx(actual, predicted):
-    #emotion_label = {'Anger':1, 'Disgust':2, 'Fear':3, 'Happiness':4, 'Sadness':5, 'Surprise':6}
+def confusionMatrix(actual, predicted):
     confusion = [[0]*6,[0]*6,[0]*6,[0]*6,[0]*6,[0]*6]
     recallrate, precisionrate = [0]*6,[0]*6
     for i in range(len(actual)):
@@ -30,25 +28,3 @@ def confusion_matx(actual, predicted):
             precisionrate[i] = float(TP[i])/(TP[i]+FP[i])
 
     return confusion, TP, FP, TN, FN, recallrate, precisionrate
-
-actual = [1,1,3,6,6,6,1]
-predicted = [2,1,3,6,6,6,6]
-conf_matx = confusion_matx(actual, predicted)[0]
-print("Confusion Matrix:")
-for i in range(len(conf_matx)):    
-    print(conf_matx[i])
-print("TP")
-print(confusion_matx(actual, predicted)[1])
-print("FP")
-print(confusion_matx(actual, predicted)[2])
-print("TN")
-print(confusion_matx(actual, predicted)[3])
-print("FN")
-print(confusion_matx(actual, predicted)[4])
-print("RECALL RATES")
-
-for element in confusion_matx(actual, predicted)[5]:
-    print(element)
-print("PRECISION RATES")
-for element in confusion_matx(actual, predicted)[6]:
-    print(element)
