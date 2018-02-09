@@ -2,7 +2,6 @@
 #if actual != predicted ---> FP or FN
 
 def confusionMatrix(actual, predicted):
-<<<<<<< HEAD
     confusion = [[0]*6,[0]*6,[0]*6,[0]*6,[0]*6,[0]*6]
     recallrate, precisionrate,F1 = [0]*6,[0]*6,[0]*6
     for i in range(len(actual)):
