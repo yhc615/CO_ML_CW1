@@ -19,7 +19,6 @@ def get_binary_targets(y_in, emotion_label):
 			b_targets.append(1)
 		else:
 			b_targets.append(0)
-	print (b_targets)
 	return b_targets
 
 def main():
@@ -31,7 +30,8 @@ def main():
 	emotion_labels = {1:'Anger', 2:'Disgust', 3:'Fear', 4:'Happiness', 5:'Sadness', 6:'Surprise'}
 	for i,x in enumerate(treeSet):
 		print("Emotion: {}".format(emotion_labels[i+1]))
-		x.printTree()
+		print(x)
+		print('-'*100)
 
 
 if __name__ == "__main__":
