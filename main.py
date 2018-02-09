@@ -36,12 +36,13 @@ def testTrees(T, x2):
 
 def main():
 	raw_data = scipy.io.loadmat('Data/noisydata_students.mat')
-	data = [raw_data['x'],raw_data['y']]
+	data = [raw_data['x'][:100],raw_data['y'][:100]]
 	data[1] = [x[0] for x in data[1]]
 
 	treeSet = genTrees(data)
 	predicts = testTrees(treeSet, data[0])
 	cM = confusionMatrix(data[1], predicts)
+
 	print("confusion matrix:")
 	print("")
 	for x in cM[0]:
@@ -51,11 +52,19 @@ def main():
 	print("")
 	for i in range(1,len(cM)):
 		print(cM[i])
-	# emotion_labels = {1:'Anger', 2:'Disgust', 3:'Fear', 4:'Happiness', 5:'Sadness', 6:'Surprise'}
-	# for i,x in enumerate(treeSet):
-	# 	print("Emotion: {}".format(emotion_labels[i+1]))
-	# 	print(x)
-	# 	print('-'*100)
+	print("")
+	i = 0
+	for x in data[1]:
+		if x == 5:
+			i += 1
+	print(i)
+
+
+	emotion_labels = {1:'Anger', 2:'Disgust', 3:'Fear', 4:'Happiness', 5:'Sadness', 6:'Surprise'}
+	for i,x in enumerate(treeSet):
+		print("Emotion: {}".format(emotion_labels[i+1]))
+		print(x)
+		print('-'*100)
 
 
 if __name__ == "__main__":
