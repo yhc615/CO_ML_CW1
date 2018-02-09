@@ -5,21 +5,21 @@ from predictor import *
 
 def genTrees(data):# data = [<x_n>,<y_n>]	
 	trees = []
-	attr = list(range(0,45))
 	for i in range(1,7):
-		b_t = get_binary_targets(data[1],i)
+		attr = list(range(0,45))
 		ex  = data[0]
+		b_t = get_binary_targets(data[1],i)
 		trees.append(DTL(ex, attr, b_t))
 	return trees
 
 def get_binary_targets(y_in, emotion_label): 
-
 	b_targets = []
 	for i in range(len(y_in)): 
 		if y_in[i] == emotion_label:
 			b_targets.append(1)
 		else:
 			b_targets.append(0)
+	print (b_targets)
 	return b_targets
 
 def main():
@@ -32,6 +32,7 @@ def main():
 	for i,x in enumerate(treeSet):
 		print("Emotion: {}".format(emotion_labels[i+1]))
 		x.printTree()
+
 
 if __name__ == "__main__":
 	main()
