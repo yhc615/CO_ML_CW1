@@ -42,7 +42,8 @@ def main():
 	treeSet = genTrees(data)
 	predicts = testTrees(treeSet, data[0])
 	cM = confusionMatrix(data[1], predicts)
-	print(cM)
+	for x in cM:
+		print(x)
 
 	# emotion_labels = {1:'Anger', 2:'Disgust', 3:'Fear', 4:'Happiness', 5:'Sadness', 6:'Surprise'}
 	# for i,x in enumerate(treeSet):
