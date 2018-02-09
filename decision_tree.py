@@ -47,9 +47,9 @@ class Tree:
 			output += self.nodeKids[1].__str__(depth+1)
 		#print value of current node
 		if not self.isLeaf:
-			output += "\n" + ("\t"*depth) + "AU{}".format(self.nodeLabel)
+			output += "\n" + ("|"*depth) + "AU{}".format(self.nodeLabel)
 		else:
-			output += "\n" + ("\t"*depth) + "Leaf: {}".format(self.leafLabel)
+			output += "\n" + ("|"*depth) + "Leaf: {}".format(self.leafLabel)
 		#descend left branch
 		if self.nodeKids[0] != None:
 			output += self.nodeKids[0].__str__(depth+1)
