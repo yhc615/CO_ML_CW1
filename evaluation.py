@@ -1,8 +1,5 @@
-#t is a tree
-#result is the output vector of the prediction : which emotion was predicted for each example row
-#if examples.y == predicted ---> TP or TN
-#if examples.y != predicted ---> FP or FN
-#one tree for each emotion : output either 1 (positive) or 0 (negative)
+#if actual == predicted ---> TP or TN
+#if actual != predicted ---> FP or FN
 
 def confusionMatrix(actual, predicted):
     confusion = [[0]*6,[0]*6,[0]*6,[0]*6,[0]*6,[0]*6]
