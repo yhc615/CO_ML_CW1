@@ -33,11 +33,13 @@ class Tree:
     def printTree(self):
         print("InnerNode: AU{}".format(self.nodeLabel+1))
         for k in self.nodeKids:
-            if k.isLeaf:
-                print("--Leaf: {}".format(k.leafLabel))
+            if k:
+                if k.isLeaf:
+                    print("--Leaf: {}".format(k.leafLabel))
         for k in self.nodeKids:
-            if not k.isLeaf:
-                k.printTree()
+            if k:    
+                if not k.isLeaf:
+                    k.printTree()
         
 
 
