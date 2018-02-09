@@ -2,6 +2,7 @@ import scipy.io
 from decision_tree import *
 from dtl import *
 from predictor import *
+from evaluation import *
 
 def genTrees(data):# data = [<x_n>,<y_n>]	
 	trees = []
@@ -36,10 +37,12 @@ def testTrees(T, x2):
 def main():
 	raw_data = scipy.io.loadmat('Data/noisydata_students.mat')
 	data = [raw_data['x'],raw_data['y']]
+	data[1] = [x[0] for x in data[1]]
 
 	treeSet = genTrees(data)
-	treeTest = testTrees(treeSet, data[0])
-	print(treeTest)
+	predicts = testTrees(treeSet, data[0])
+	cM = confusionMatrix(data[1], predicts)
+	print(cM)
 
 	# emotion_labels = {1:'Anger', 2:'Disgust', 3:'Fear', 4:'Happiness', 5:'Sadness', 6:'Surprise'}
 	# for i,x in enumerate(treeSet):
