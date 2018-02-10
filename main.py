@@ -47,6 +47,7 @@ def printConfusionMatrix(conMat):
 	print("Recall Rate: {}".format(conMat[5]))
 	print("Precision Rate: {}".format(conMat[6]))
 	print("F1: {}".format(conMat[7]))
+	print("Classification Rate: {}".format(conMat[8]))
 
 def flatten(l):
 	flat_list = []
