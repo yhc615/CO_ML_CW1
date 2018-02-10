@@ -4,10 +4,12 @@
 def confusionMatrix(actual, predicted):
 	confusion = [[0]*6,[0]*6,[0]*6,[0]*6,[0]*6,[0]*6]
 	recallrate, precisionrate,F1 = [0]*6,[0]*6,[0]*6
+	errorrate = 0
 	for i in range(len(actual)):
 		#emotion = actual result
 		#result = predicted result
-		confusion[actual[i]-1][predicted[i]-1] +=1   
+		confusion[actual[i]-1][predicted[i]-1] +=1
+		errorrate += (1/len(predicted)) * (1-(predicted[i]==actual[i]))
 	TP,FP,TN,FN =[0]*6,[0]*6,[0]*6,[0]*6
 
 	for i in range(6):
@@ -26,4 +28,6 @@ def confusionMatrix(actual, predicted):
 		if(precisionrate[i] !=0 or recallrate[i] != 0):
 			F1[i] = 2*(precisionrate[i]*recallrate[i])/(precisionrate[i]+recallrate[i])
 
-	return confusion, TP, FP, TN, FN, recallrate, precisionrate, F1
+	classificationrate = 1-errorrate
+
+	return confusion, TP, FP, TN, FN, recallrate, precisionrate, F1, classificationrate
