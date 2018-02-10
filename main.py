@@ -71,6 +71,10 @@ def crossValidation(nFolds, x, y):
 		conMats.append(cM)
 	return avgConMatSet(conMats)
 
+def fullSetTrainTest(x, y):
+	treeSet = genTrees([x,y])
+	predicts = testTrees(treeSet, x)
+	printConfusionMatrix(confusionMatrix(y, predicts))
 
 
 def main():
@@ -78,7 +82,8 @@ def main():
 	data = [raw_data['x'][:],raw_data['y'][:]]
 	data[1] = [x[0] for x in data[1]]
 
-	crossValidation(10, data[0], data[1])
+	#crossValidation(10, data[0], data[1])
+	fullSetTrainTest(data[0], data[1])
 
 
 	# emotion_labels = {1:'Anger', 2:'Disgust', 3:'Fear', 4:'Happiness', 5:'Sadness', 6:'Surprise'}
