@@ -36,10 +36,28 @@ def testTrees(T, x2):
 		predictions.append(ambStrat(emotePredicts))
 	return predictions
 
-def printStats(conMat):
+def printStats(conMat, extra):
 	print("Confusion Matrix:\n")
 	print(conMat)
-	#print(conMatStats(conMat))
+	if extra:
+		stats = conMatStats(conMat)
+		print("--TP:")
+		for x in stats[0]: print(x)
+		print("--FP:")
+		for x in stats[1]: print(x)
+		print("--TN:")
+		for x in stats[2]: print(x)
+		print("--FN:")
+		for x in stats[3]: print(x)
+		print("--Recall:")
+		for x in stats[4]: print(x)
+		print("--Precision:")
+		for x in stats[5]: print(x)
+		print("--F1:")
+		for x in stats[6]: print(x)
+		print("--Classification Rate:")
+		print(stats[7])
+
 
 def avgConMatSet(conMats):
 	tmp = numpy.zeros(shape=(6,6)).astype(int)
@@ -62,7 +80,7 @@ def crossValidation(nFolds, x, y):
 		predicts = testTrees(treeSet, xTest)
 		cM = confusionMatrix(yTest, predicts)
 		#print("--Fold {}:".format(i))
-		#printStats(cM)
+		#printStats(cM, 0)
 		conMats.append(cM)
 	return avgConMatSet(conMats)
 
@@ -74,18 +92,18 @@ def fullSetTrainTest(x, y):
 		print("Emotion: {}".format(emotion_labels[i+1]))
 		print(x)
 		print('-'*100)
-	printStats(confusionMatrix(y, predicts))
+	printStats(confusionMatrix(y, predicts), 0)
 
 
 def main():
-	raw_data = scipy.io.loadmat('Data/noisydata_students.mat')
+	raw_data = scipy.io.loadmat('Data/cleandata_students.mat')
 	data = [raw_data['x'][:1000],raw_data['y'][:1000]]
 	data[1] = [x[0] for x in data[1]]
 
-	#q = crossValidation(10, data[0], data[1])
-	#printStats(q)
+	q = crossValidation(10, data[0], data[1])
+	printStats(q, 1)
 
-	fullSetTrainTest(data[0], data[1])
+	#fullSetTrainTest(data[0], data[1])
 
 
 if __name__ == "__main__":

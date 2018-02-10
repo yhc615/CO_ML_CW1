@@ -15,7 +15,7 @@ def confusionMatrix(actual, predicted):
 
 	return confusion
 
-def stats(confusion):
+def conMatStats(confusion):
 	recallrate, precisionrate,F1 = [0]*6,[0]*6,[0]*6
 	
 	TP,FP,TN,FN =[0]*6,[0]*6,[0]*6,[0]*6
