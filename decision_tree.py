@@ -4,17 +4,17 @@ Decision-tree Class Definition
 
 class Tree:
 	def __init__(self,label, isLeaf=False):
-		self.nodeLabel = None
+		self.nodeOp = None
 		self.nodeKids = [None,None]
 		self.isLeaf = isLeaf
 		self.leafLabel = None
 		if self.isLeaf:
 			self.leafLabel = label
 		else:
-			self.nodeLabel = label
+			self.nodeOp = label
 
 	def getNodeLabel(self):
-		return self.nodeLabel
+		return self.nodeOp
 
 	def getIsLeaf(self):
 		return self.isLeaf
@@ -32,7 +32,7 @@ class Tree:
 			raise Exception("Out of range")
 
 	def printTree(self): #DELETE LATER IF __STR__ works!
-		print("InnerNode: AU{}".format(self.nodeLabel+1))
+		print("InnerNode: AU{}".format(self.nodeOp+1))
 		for k in self.nodeKids:
 			if k:
 				if k.isLeaf:
@@ -49,7 +49,7 @@ class Tree:
 			output += self.nodeKids[1].__str__(depth+1)
 		#print value of current node
 		if not self.isLeaf:
-			output += "\n" + ("|"*depth) + "AU{}".format(self.nodeLabel+1)
+			output += "\n" + ("|"*depth) + "AU{}".format(self.nodeOp+1)
 		else:
 			output += "\n" + ("|"*depth) + "Leaf: {}".format(self.leafLabel)
 		#descend left branch

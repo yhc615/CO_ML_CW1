@@ -1,3 +1,5 @@
+import random
+
 def predictor(x, dtl):
 	attrVal = x[dtl.getNodeLabel()]
 	kids = dtl.getKids()
@@ -9,7 +11,7 @@ def predictor(x, dtl):
 def ambiguityStrat(arr):
 	if 1 in arr:
 		return arr.index(1)+1
-	return 0
+	return random.choice(list(range(1,7)))
 
 def testTrees(T, x2):
 	predictions = []

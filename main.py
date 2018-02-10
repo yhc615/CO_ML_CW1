@@ -10,8 +10,10 @@ from data import *
 def printStats(conMat, extra):
 	print("Confusion Matrix:\n")
 	print(conMat)
+	print("--Classification Rate:")
+	stats = conMatStats(conMat)
+	print(stats[7])
 	if extra:
-		stats = conMatStats(conMat)
 		print("--TP:")
 		for x in stats[0]: print(x)
 		print("--FP:")
@@ -26,8 +28,6 @@ def printStats(conMat, extra):
 		for x in stats[5]: print(x)
 		print("--F1:")
 		for x in stats[6]: print(x)
-		print("--Classification Rate:")
-		print(stats[7])
 
 def genTrees(x2, y2):
 	trees = []
@@ -67,18 +67,18 @@ def fullSetTrainTest(x2, y2):
 		print("Emotion: {}".format(emotion_labels[i+1]))
 		print(x)
 		print('-'*100)
-	printStats(confusionMatrix(y, predicts), 0)
+	printStats(confusionMatrix(y2, predicts), 0)
 
 
 def main():
 	raw_data = scipy.io.loadmat('Data/cleandata_students.mat')
-	data = [raw_data['x'][:1000],raw_data['y'][:1000]]
+	data = [raw_data['x'][:],raw_data['y'][:]]
 	data[1] = [x[0] for x in data[1]]
 
-	q = crossValidation(10, data[0], data[1])
-	printStats(q, 1)
+	#q = crossValidation(10, data[0], data[1])
+	#printStats(q, 0)
 
-	#fullSetTrainTest(data[0], data[1])
+	fullSetTrainTest(data[0], data[1])
 
 
 if __name__ == "__main__":
