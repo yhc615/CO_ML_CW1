@@ -1,9 +1,9 @@
 #if actual == predicted ---> TP or TN
 #if actual != predicted ---> FP or FN
+import numpy
 
 def confusionMatrix(actual, predicted):
-	confusion = [[0]*6,[0]*6,[0]*6,[0]*6,[0]*6,[0]*6]
-	recallrate, precisionrate,F1 = [0]*6,[0]*6,[0]*6
+	confusion = numpy.zeros(shape=(6,6)).astype(int)
 	errorrate = 0
 	for i in range(len(actual)):
 		#emotion = actual result

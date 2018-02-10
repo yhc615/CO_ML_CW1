@@ -36,21 +36,16 @@ def testTrees(T, x2):
 		predictions.append(ambStrat(emotePredicts))
 	return predictions
 
-def printConfusionMatrix(conMat):
+def printStats(conMat):
 	print("Confusion Matrix:\n")
-	for x in conMat[0]:
-		print(x)
-	print("\nTP: {}".format(conMat[1]))
-	print("FP: {}".format(conMat[2]))
-	print("TN: {}".format(conMat[3]))
-	print("FN: {}".format(conMat[4]))
-	print("Recall Rate: {}".format(conMat[5]))
-	print("Precision Rate: {}".format(conMat[6]))
-	print("F1: {}".format(conMat[7]))
-	print("Classification Rate: {}".format(conMat[8]))
+	print(conMat)
+	#print(conMatStats(conMat))
 
 def avgConMatSet(conMats):
-	return 0
+	tmp = numpy.zeros(shape=(6,6)).astype(int)
+	for mat in conMats:
+		tmp += mat
+	return tmp
 
 def crossValidation(nFolds, x, y):
 	xSplit, ySplit = [], []
@@ -66,31 +61,31 @@ def crossValidation(nFolds, x, y):
 		treeSet = genTrees([xTrain,yTrain])
 		predicts = testTrees(treeSet, xTest)
 		cM = confusionMatrix(yTest, predicts)
-		print("--Fold {}:".format(i))
-		printConfusionMatrix(cM)
+		#print("--Fold {}:".format(i))
+		#printStats(cM)
 		conMats.append(cM)
 	return avgConMatSet(conMats)
 
 def fullSetTrainTest(x, y):
 	treeSet = genTrees([x,y])
 	predicts = testTrees(treeSet, x)
-	printConfusionMatrix(confusionMatrix(y, predicts))
+	emotion_labels = {1:'Anger', 2:'Disgust', 3:'Fear', 4:'Happiness', 5:'Sadness', 6:'Surprise'}
+	for i,x in enumerate(treeSet):
+		print("Emotion: {}".format(emotion_labels[i+1]))
+		print(x)
+		print('-'*100)
+	printStats(confusionMatrix(y, predicts))
 
 
 def main():
 	raw_data = scipy.io.loadmat('Data/noisydata_students.mat')
-	data = [raw_data['x'][:],raw_data['y'][:]]
+	data = [raw_data['x'][:1000],raw_data['y'][:1000]]
 	data[1] = [x[0] for x in data[1]]
 
-	#crossValidation(10, data[0], data[1])
+	#q = crossValidation(10, data[0], data[1])
+	#printStats(q)
+
 	fullSetTrainTest(data[0], data[1])
-
-
-	# emotion_labels = {1:'Anger', 2:'Disgust', 3:'Fear', 4:'Happiness', 5:'Sadness', 6:'Surprise'}
-	# for i,x in enumerate(treeSet):
-	# 	print("Emotion: {}".format(emotion_labels[i+1]))
-	# 	print(x)
-	# 	print('-'*100)
 
 
 if __name__ == "__main__":
