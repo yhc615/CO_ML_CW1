@@ -9,9 +9,9 @@ def confusionMatrix(actual, predicted):
 		#emotion = actual result
 		#result = predicted result
 		confusion[actual[i]-1][predicted[i]-1] +=1
-		errorrate += (1/len(predicted)) * (1-(predicted[i]==actual[i]))
+		#errorrate += (1/len(predicted)) * (1-(predicted[i]==actual[i]))
 
-	classificationrate = 1-errorrate
+		#classificationrate = 1-errorrate
 
 	return confusion
 
@@ -35,6 +35,7 @@ def stats(confusion):
 			precisionrate[i] = float(TP[i])/(TP[i]+FP[i])
 		if(precisionrate[i] !=0 or recallrate[i] != 0):
 			F1[i] = 2*(precisionrate[i]*recallrate[i])/(precisionrate[i]+recallrate[i])
+		classificationrate = 1-(1/numpy.sum(confusion))*(numpy.sum(confusion)-numpy.trace(confusion))
 
 
-	return TP, FP, TN, FN, recallrate, precisionrate, F1
+	return TP, FP, TN, FN, recallrate, precisionrate, F1,classificationrate
