@@ -1,4 +1,6 @@
 import scipy.io
+import numpy as np
+from math import floor
 from decision_tree import *
 from dtl import *
 from predictor import *
@@ -34,37 +36,54 @@ def testTrees(T, x2):
 		predictions.append(ambStrat(emotePredicts))
 	return predictions
 
+def printConfusionMatrix(conMat):
+	print("Confusion Matrix:\n")
+	for x in conMat[0]:
+		print(x)
+	print("\nTP: {}".format(conMat[1]))
+	print("FP: {}".format(conMat[2]))
+	print("TN: {}".format(conMat[3]))
+	print("FN: {}".format(conMat[4]))
+	print("Recall Rate: {}".format(conMat[5]))
+	print("Precision Rate: {}".format(conMat[6]))
+	print("F1: {}".format(conMat[7]))
+
+def flatten(l):
+	flat_list = []
+	for sublist in l:
+		for item in sublist:
+			flat_list.append(item)
+	return flat_list
+
+def crossValidation(nFolds, x, y):
+	xSplit, ySplit = [], []
+	subSize = int(len(x)/nFolds)
+	print(subSize)
+	for i in range(nFolds):
+		xSplit.append(x[i*subSize:(i+1)*subSize])
+		ySplit.append(y[i*subSize:(i+1)*subSize])
+	for i in range(nFolds):
+		xTrain, yTrain = [x for k,sublist in enumerate(xSplit) for x in sublist if k!=i], [y for k,sublist in enumerate(ySplit) for y in sublist if k!=i]
+		xTest, yTest = xSplit[i], ySplit[i]
+		treeSet = genTrees([xTrain,yTrain])
+		predicts = testTrees(treeSet, xTest)
+		cM = confusionMatrix(yTest, predicts)
+		print("Fold {}:".format(i))
+		printConfusionMatrix(cM)
+
 def main():
 	raw_data = scipy.io.loadmat('Data/noisydata_students.mat')
-	data = [raw_data['x'][:100],raw_data['y'][:100]]
+	data = [raw_data['x'][:],raw_data['y'][:]]
 	data[1] = [x[0] for x in data[1]]
 
-	treeSet = genTrees(data)
-	predicts = testTrees(treeSet, data[0])
-	cM = confusionMatrix(data[1], predicts)
-
-	print("confusion matrix:")
-	print("")
-	for x in cM[0]:
-		print(x)
-	print("")
-	print("TP, FP, TN, FN, recall rate, precision rate, F1")
-	print("")
-	for i in range(1,len(cM)):
-		print(cM[i])
-	print("")
-	i = 0
-	for x in data[1]:
-		if x == 5:
-			i += 1
-	print(i)
+	crossValidation(10, data[0], data[1])
 
 
-	emotion_labels = {1:'Anger', 2:'Disgust', 3:'Fear', 4:'Happiness', 5:'Sadness', 6:'Surprise'}
-	for i,x in enumerate(treeSet):
-		print("Emotion: {}".format(emotion_labels[i+1]))
-		print(x)
-		print('-'*100)
+	# emotion_labels = {1:'Anger', 2:'Disgust', 3:'Fear', 4:'Happiness', 5:'Sadness', 6:'Surprise'}
+	# for i,x in enumerate(treeSet):
+	# 	print("Emotion: {}".format(emotion_labels[i+1]))
+	# 	print(x)
+	# 	print('-'*100)
 
 
 if __name__ == "__main__":
