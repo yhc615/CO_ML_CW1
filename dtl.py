@@ -27,7 +27,7 @@ def CHOOSE_BEST_DECISION_ATTR(ex,attr,b_targets):
 			bestAttr = a
 	return bestAttr
 
-def DTL(examples, attributes, binary_targets):
+def DECISION_TREE_LEARNING(examples, attributes, binary_targets):
 	if(binary_targets[1:] == binary_targets[:-1]):
 		return leaf(binary_targets[0])
 	elif not attributes:
@@ -41,6 +41,6 @@ def DTL(examples, attributes, binary_targets):
 			if not v_examples:
 				nodeToAdd = leaf(MAJORITY_VALUE(binary_targets))
 			else:
-				nodeToAdd = DTL(v_examples, attributes,v_binary_targets)
+				nodeToAdd = DECISION_TREE_LEARNING(v_examples, attributes,v_binary_targets)
 			root.setKid(v, nodeToAdd)
 		return root

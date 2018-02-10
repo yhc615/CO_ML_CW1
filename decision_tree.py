@@ -30,6 +30,7 @@ class Tree:
 			self.nodeKids[i] = node
 		else:
 			raise Exception("Out of range")
+
 	def printTree(self): #DELETE LATER IF __STR__ works!
 		print("InnerNode: AU{}".format(self.nodeLabel+1))
 		for k in self.nodeKids:
@@ -40,6 +41,7 @@ class Tree:
 			if k:    
 				if not k.isLeaf:
 					k.printTree()
+
 	def __str__(self,depth=0):
 		output = ""
 		#descent right branch

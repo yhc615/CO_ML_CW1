@@ -5,36 +5,7 @@ from decision_tree import *
 from dtl import *
 from predictor import *
 from evaluation import *
-
-def genTrees(data):# data = [<x_n>,<y_n>]	
-	trees = []
-	for i in range(1,7):
-		attr = list(range(0,45))
-		ex  = data[0]
-		b_t = getBinaryTargets(data[1],i)
-		trees.append(DTL(ex, attr, b_t))
-	return trees
-
-def getBinaryTargets(y_in, emotion_label): 
-	b_targets = []
-	for i in range(len(y_in)): 
-		if y_in[i] == emotion_label:
-			b_targets.append(1)
-		else:
-			b_targets.append(0)
-	return b_targets
-
-def ambStrat(arr):
-	if 1 in arr:
-		return arr.index(1)+1
-	return 0
-
-def testTrees(T, x2):
-	predictions = []
-	for x in x2:
-		emotePredicts = [predictor(x, tree) for tree in T]
-		predictions.append(ambStrat(emotePredicts))
-	return predictions
+from data import *
 
 def printStats(conMat, extra):
 	print("Confusion Matrix:\n")
@@ -58,11 +29,13 @@ def printStats(conMat, extra):
 		print("--Classification Rate:")
 		print(stats[7])
 
-def avgConMatSet(conMats):
-	tmp = numpy.zeros(shape=(6,6)).astype(int)
-	for mat in conMats:
-		tmp += mat
-	return tmp
+def genTrees(x2, y2):
+	trees = []
+	for i in range(1,7):
+		attr = list(range(0,45))
+		b_t = getBinaryTargets(y2,i)
+		trees.append(DECISION_TREE_LEARNING(x2, attr, b_t))
+	return trees
 
 def crossValidation(nFolds, x, y):
 	xSplit, ySplit = [], []
@@ -75,17 +48,20 @@ def crossValidation(nFolds, x, y):
 	for i in range(nFolds):
 		xTrain, yTrain = [x for k,sublist in enumerate(xSplit) for x in sublist if k!=i], [y for k,sublist in enumerate(ySplit) for y in sublist if k!=i]
 		xTest, yTest = xSplit[i], ySplit[i]
-		treeSet = genTrees([xTrain,yTrain])
+		treeSet = genTrees(xTrain, yTrain)
 		predicts = testTrees(treeSet, xTest)
 		cM = confusionMatrix(yTest, predicts)
 		#print("--Fold {}:".format(i))
 		#printStats(cM, 0)
 		conMats.append(cM)
-	return avgConMatSet(conMats)
+	tmp = numpy.zeros(shape=(6,6)).astype(int)
+	for mat in conMats:
+		tmp += mat
+	return tmp
 
-def fullSetTrainTest(x, y):
-	treeSet = genTrees([x,y])
-	predicts = testTrees(treeSet, x)
+def fullSetTrainTest(x2, y2):
+	treeSet = genTrees(x2,y2)
+	predicts = testTrees(treeSet, x2)
 	emotion_labels = {1:'Anger', 2:'Disgust', 3:'Fear', 4:'Happiness', 5:'Sadness', 6:'Surprise'}
 	for i,x in enumerate(treeSet):
 		print("Emotion: {}".format(emotion_labels[i+1]))
