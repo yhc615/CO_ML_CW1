@@ -58,7 +58,6 @@ def printStats(conMat, extra):
 		print("--Classification Rate:")
 		print(stats[7])
 
-
 def avgConMatSet(conMats):
 	tmp = numpy.zeros(shape=(6,6)).astype(int)
 	for mat in conMats:
