@@ -48,17 +48,14 @@ def printConfusionMatrix(conMat):
 	print("Precision Rate: {}".format(conMat[6]))
 	print("F1: {}".format(conMat[7]))
 
-def flatten(l):
-	flat_list = []
-	for sublist in l:
-		for item in sublist:
-			flat_list.append(item)
-	return flat_list
+def avgConMatSet(conMats):
+
 
 def crossValidation(nFolds, x, y):
 	xSplit, ySplit = [], []
 	subSize = int(len(x)/nFolds)
-	print(subSize)
+	conMats = []
+	ret = []
 	for i in range(nFolds):
 		xSplit.append(x[i*subSize:(i+1)*subSize])
 		ySplit.append(y[i*subSize:(i+1)*subSize])
@@ -68,8 +65,12 @@ def crossValidation(nFolds, x, y):
 		treeSet = genTrees([xTrain,yTrain])
 		predicts = testTrees(treeSet, xTest)
 		cM = confusionMatrix(yTest, predicts)
-		print("Fold {}:".format(i))
+		print("--Fold {}:".format(i))
 		printConfusionMatrix(cM)
+		conMats.append(cM)
+	return avgConMatSet(conMats)
+
+
 
 def main():
 	raw_data = scipy.io.loadmat('Data/noisydata_students.mat')
