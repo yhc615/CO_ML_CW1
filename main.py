@@ -50,7 +50,7 @@ def printConfusionMatrix(conMat):
 	print("Classification Rate: {}".format(conMat[8]))
 
 def avgConMatSet(conMats):
-
+	return 0
 
 def crossValidation(nFolds, x, y):
 	xSplit, ySplit = [], []
