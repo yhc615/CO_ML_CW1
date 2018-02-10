@@ -39,7 +39,7 @@ def testTrees(T, x2):
 def printStats(conMat):
 	print("Confusion Matrix:\n")
 	print(conMat)
-	#print(conMatStats(conMat))
+	print(stats(conMat))
 
 def avgConMatSet(conMats):
 	tmp = numpy.zeros(shape=(6,6)).astype(int)
