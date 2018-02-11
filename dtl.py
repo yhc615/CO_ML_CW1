@@ -15,14 +15,14 @@ def CHOOSE_BEST_DECISION_ATTR(ex,attr,b_targets):
 	pEx, nEx = [e for i,e in enumerate(ex) if b_targets[i]], [e for i,e in enumerate(ex) if not b_targets[i]]
 	p, n = len(pEx), len(nEx)
 	entropy = calcEntropy(p,n)
-	bestAttr = attr[0]
+	bestAttr = 0
 	bestGain = 0
 	for i,a in enumerate(attr):
 		p0,n0 = len([e[i] for e in pEx if not e[i]]), len([e[i] for e in nEx if not e[i]])
 		p1,n1 = len([e[i] for e in pEx if e[i]]), len([e[i] for e in nEx if e[i]])
 		aRemainder = ((p0+n0)/(p+n))*calcEntropy(p0,n0) + ((p1+n1)/(p+n))*calcEntropy(p1,n1)
 		aGain = entropy-aRemainder
-		if bestGain<aGain:
+		if bestGain<aGain or i==1:
 			bestGain = aGain
 			bestAttr = a
 	return bestAttr

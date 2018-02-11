@@ -1,11 +1,14 @@
 import scipy.io
 import numpy as np
+import pickle
 from math import floor
 from decision_tree import *
 from dtl import *
 from predictor import *
 from evaluation import *
 from data import *
+
+emotion_labels = {1:'Anger', 2:'Disgust', 3:'Fear', 4:'Happiness', 5:'Sadness', 6:'Surprise'}
 
 def printStats(conMat, extra):
 	print("Confusion Matrix:\n")
@@ -62,12 +65,22 @@ def crossValidation(nFolds, x, y):
 def fullSetTrainTest(x2, y2):
 	treeSet = genTrees(x2,y2)
 	predicts = testTrees(treeSet, x2)
-	emotion_labels = {1:'Anger', 2:'Disgust', 3:'Fear', 4:'Happiness', 5:'Sadness', 6:'Surprise'}
-	for i,x in enumerate(treeSet):
-		print("Emotion: {}".format(emotion_labels[i+1]))
-		print(x)
-		print('-'*100)
+	#for i,x in enumerate(treeSet):
+		#print("Emotion: {}".format(emotion_labels[i+1]))
+		#print(x)
+		#print('-'*100)
 	printStats(confusionMatrix(y2, predicts), 0)
+
+def saveTrees(fNamePrefix, tSet):
+	for i,t in enumerate(tSet):
+		pickle.dump(t, open("trees/"+fNamePrefix+"_"+emotion_labels[i+1]+".p", "wb"))
+
+def loadTrees(fNamePrefix):
+	tSet = []
+	for i,emote in emotion_labels.items():
+		p = pickle.load(open("trees/"+fNamePrefix+"_"+emote+".p", "rb"))
+		tSet.append(p)
+	return tSet
 
 
 def main():
@@ -76,9 +89,14 @@ def main():
 	data[1] = [x[0] for x in data[1]]
 
 	#q = crossValidation(10, data[0], data[1])
+	#print("\nTotal:")
 	#printStats(q, 0)
 
-	fullSetTrainTest(data[0], data[1])
+	#fullSetTrainTest(data[0], data[1])
+	#saveTrees("fullClean", genTrees(data[0],data[1]))
+	trees = loadTrees("fullClean")
+	predicts = testTrees(trees, data[0])
+	printStats(confusionMatrix(data[1], predicts), 0)
 
 
 if __name__ == "__main__":
