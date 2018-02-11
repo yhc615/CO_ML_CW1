@@ -40,14 +40,14 @@ def genTrees(x2, y2):
 		trees.append(DECISION_TREE_LEARNING(x2, attr, b_t))
 	return trees
 
-def crossValidation(nFolds, x, y):
+def crossValidation(nFolds, x2, y2):
 	xSplit, ySplit = [], []
-	subSize = int(len(x)/nFolds)
+	subSize = int(len(x2)/nFolds)
 	conMats = []
 	ret = []
 	for i in range(nFolds):
-		xSplit.append(x[i*subSize:(i+1)*subSize])
-		ySplit.append(y[i*subSize:(i+1)*subSize])
+		xSplit.append(x2[i*subSize:(i+1)*subSize])
+		ySplit.append(y2[i*subSize:(i+1)*subSize])
 	for i in range(nFolds):
 		xTrain, yTrain = [x for k,sublist in enumerate(xSplit) for x in sublist if k!=i], [y for k,sublist in enumerate(ySplit) for y in sublist if k!=i]
 		xTest, yTest = xSplit[i], ySplit[i]
@@ -96,7 +96,7 @@ def main():
 	#saveTrees("fullClean", genTrees(data[0],data[1]))
 	trees = loadTrees("fullClean")
 	predicts = testTrees(trees, data[0])
-	printStats(confusionMatrix(data[1], predicts), 0)
+	printStats(confusionMatrix(data[1], predicts), 1)
 
 
 if __name__ == "__main__":
