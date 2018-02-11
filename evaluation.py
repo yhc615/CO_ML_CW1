@@ -21,7 +21,10 @@ def conMatStats(confusion):
 				FN[i] += confusion[i][j]
 				
 				FP[i] += confusion[j][i]
-				TN[i] += confusion[j][j]
+				for k in range(6):
+					if k!=i:
+						TN[i] += confusion[j][k]
+
 	for i in range(6):
 		if(TP[i] != 0 or FN[i] !=0):
 			recallrate[i] = float(TP[i])/(TP[i]+FN[i])
