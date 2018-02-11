@@ -22,7 +22,7 @@ def CHOOSE_BEST_DECISION_ATTR(ex,attr,b_targets):
 		p1,n1 = len([e[i] for e in pEx if e[i]]), len([e[i] for e in nEx if e[i]])
 		aRemainder = ((p0+n0)/(p+n))*calcEntropy(p0,n0) + ((p1+n1)/(p+n))*calcEntropy(p1,n1)
 		aGain = entropy-aRemainder
-		if bestGain<aGain or i==1:
+		if aGain>bestGain or i==0:
 			bestGain = aGain
 			bestAttr = a
 	return bestAttr
@@ -37,10 +37,11 @@ def DECISION_TREE_LEARNING(examples, attributes, binary_targets):
 		attributes.remove(best_attribute)
 		root = tree(best_attribute)
 		for v in [0,1]:
+			newAttr = attributes[:]
 			v_examples, v_binary_targets = [e for e in examples if e[best_attribute]==v],[binary_targets[i] for i,e in enumerate(examples) if e[best_attribute]==v]
 			if not v_examples:
 				nodeToAdd = leaf(MAJORITY_VALUE(binary_targets))
 			else:
-				nodeToAdd = DECISION_TREE_LEARNING(v_examples, attributes,v_binary_targets)
+				nodeToAdd = DECISION_TREE_LEARNING(v_examples, newAttr, v_binary_targets)
 			root.setKid(v, nodeToAdd)
 		return root

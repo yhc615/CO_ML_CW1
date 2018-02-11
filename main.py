@@ -65,10 +65,10 @@ def crossValidation(nFolds, x2, y2):
 def fullSetTrainTest(x2, y2):
 	treeSet = genTrees(x2,y2)
 	predicts = testTrees(treeSet, x2)
-	#for i,x in enumerate(treeSet):
-		#print("Emotion: {}".format(emotion_labels[i+1]))
-		#print(x)
-		#print('-'*100)
+	for i,x in enumerate(treeSet):
+		print("Emotion: {}".format(emotion_labels[i+1]))
+		print(x)
+		print('-'*100)
 	printStats(confusionMatrix(y2, predicts), 0)
 
 def saveTrees(fNamePrefix, tSet):
@@ -82,6 +82,13 @@ def loadTrees(fNamePrefix):
 		tSet.append(p)
 	return tSet
 
+def oneTree(x2, y2, emote):
+	attr = list(range(0,45))
+	b_t = getBinaryTargets(y2,emote)
+	tree = DECISION_TREE_LEARNING(x2, attr, b_t)
+	predicts = testTrees([tree], x2)
+	print("Emotion: {}".format(emotion_labels[emote]))
+	print(tree)
 
 def main():
 	raw_data = scipy.io.loadmat('Data/cleandata_students.mat')
@@ -90,13 +97,15 @@ def main():
 
 	#q = crossValidation(10, data[0], data[1])
 	#print("\nTotal:")
-	#printStats(q, 0)
+	#printStats(q, 1)
+
+	#oneTree(data[0], data[1], 1)
 
 	#fullSetTrainTest(data[0], data[1])
 	#saveTrees("fullClean", genTrees(data[0],data[1]))
 	trees = loadTrees("fullClean")
 	predicts = testTrees(trees, data[0])
-	printStats(confusionMatrix(data[1], predicts), 1)
+	printStats(confusionMatrix(data[1], predicts), 0)
 
 
 if __name__ == "__main__":
