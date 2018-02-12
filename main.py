@@ -95,17 +95,17 @@ def main():
 	data = [raw_data['x'][:],raw_data['y'][:]]
 	data[1] = [x[0] for x in data[1]]
 
-	#q = crossValidation(10, data[0], data[1])
-	#print("\nTotal:")
-	#printStats(q, 1)
+	q = crossValidation(10, data[0], data[1])
+	print("\nTotal:")
+	printStats(q, 1)
 
-	#oneTree(data[0], data[1], 1)
+	#oneTree(data[0], data[1], 3)
 
 	#fullSetTrainTest(data[0], data[1])
 	#saveTrees("fullClean", genTrees(data[0],data[1]))
-	trees = loadTrees("fullClean")
-	predicts = testTrees(trees, data[0])
-	printStats(confusionMatrix(data[1], predicts), 0)
+	#trees = loadTrees("fullClean")
+	#predicts = testTrees(trees, data[0])
+	#printStats(confusionMatrix(data[1], predicts), 0)
 
 
 if __name__ == "__main__":

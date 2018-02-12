@@ -1,10 +1,10 @@
 import random
 
 def predictor(x, dtl):
-	attrVal = x[dtl.getNodeLabel()]
+	attrVal = x[dtl.getNodeOp()]
 	kids = dtl.getKids()
 	if kids[attrVal].getIsLeaf():
-		return kids[attrVal].getLeafLabel()
+		return kids[attrVal].getLeafClass()
 	else:
 		return predictor(x, kids[attrVal])
 
@@ -18,8 +18,6 @@ def ambiguityStrat(arr, strat):
 		elif strat==2:
 			if len(positives)>1 and 6 in positives:
 				positives.remove(6)
-			if len(positives)>1 and 1 in positives:
-				return 1
 			return random.choice(positives)
 	return random.choice(list(range(1,7)))
 
@@ -27,5 +25,5 @@ def testTrees(T, x2):
 	predictions = []
 	for x in x2:
 		emotePredicts = [predictor(x, tree) for tree in T]
-		predictions.append(ambiguityStrat(emotePredicts,0))
+		predictions.append(ambiguityStrat(emotePredicts,2))
 	return predictions

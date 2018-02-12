@@ -7,20 +7,20 @@ class Tree:
 		self.nodeOp = None
 		self.nodeKids = [None,None]
 		self.isLeaf = isLeaf
-		self.leafLabel = None
+		self.leafClass = None
 		if self.isLeaf:
-			self.leafLabel = label
+			self.leafClass = label
 		else:
 			self.nodeOp = label
 
-	def getNodeLabel(self):
+	def getNodeOp(self):
 		return self.nodeOp
 
 	def getIsLeaf(self):
 		return self.isLeaf
 
-	def getLeafLabel(self):
-		return self.leafLabel
+	def getLeafClass(self):
+		return self.leafClass
 
 	def getKids(self):
 		return self.nodeKids
@@ -36,7 +36,7 @@ class Tree:
 		for k in self.nodeKids:
 			if k:
 				if k.isLeaf:
-					print("--Leaf: {}".format(k.leafLabel))
+					print("--Leaf: {}".format(k.leafClass))
 		for k in self.nodeKids:
 			if k:    
 				if not k.isLeaf:
@@ -51,7 +51,7 @@ class Tree:
 		if not self.isLeaf:
 			output += "\n" + ("|"*depth) + "AU{}".format(self.nodeOp+1)
 		else:
-			output += "\n" + ("|"*depth) + "Leaf: {}".format(self.leafLabel)
+			output += "\n" + ("|"*depth) + "Leaf: {}".format(self.leafClass)
 		#descend left branch
 		if self.nodeKids[0] != None:
 			output += self.nodeKids[0].__str__(depth+1)
