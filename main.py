@@ -102,7 +102,7 @@ def main():
 	#---
 
 	#---uncomment to make and print one tree---
-	oneTree(data[0], data[1], 3)
+	#oneTree(data[0], data[1], 3)
 	#---
 
 	#---uncomment to train and test on full data---
@@ -116,7 +116,7 @@ def main():
 	#---uncomment to load trees from trees folder and predict on data---
 	#trees = loadTrees("fullClean")
 	#predicts = testTrees(trees, data[0])
-	#printStats(confusionMatrix(data[1], predicts), 0)
+	#printStats(confusionMatrix(data[1], predicts), 0) #0 for less info, 1 for more info
 	#---
 
 
