@@ -42,8 +42,11 @@ class Tree:
 				if not k.isLeaf:
 					k.printTree()
 
-	def __str__(self,depth=0):
+	def __str__(self,depth=0,printLimit=5):
 		output = ""
+		#stop if printLimit reached
+		if(depth>=printLimit):
+			return output
 		#descent right branch
 		if self.nodeKids[1] != None:
 			output += self.nodeKids[1].__str__(depth+1)

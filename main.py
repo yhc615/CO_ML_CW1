@@ -95,11 +95,11 @@ def main():
 	data = [raw_data['x'][:],raw_data['y'][:]]
 	data[1] = [x[0] for x in data[1]]
 
-	q = crossValidation(10, data[0], data[1])
-	print("\nTotal:")
-	printStats(q, 0)
+	#q = crossValidation(10, data[0], data[1])
+	#print("\nTotal:")
+	#printStats(q, 0)
 
-	#oneTree(data[0], data[1], 3)
+	oneTree(data[0], data[1], 3)
 
 	#fullSetTrainTest(data[0], data[1])
 	#saveTrees("fullClean", genTrees(data[0],data[1]))
