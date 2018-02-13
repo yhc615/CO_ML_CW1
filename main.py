@@ -91,6 +91,7 @@ def oneTree(x2, y2, emote):
 	print(tree)
 
 def main():
+	#load data file in here
 	raw_data = scipy.io.loadmat('Data/cleandata_students.mat')
 	data = [raw_data['x'][:],raw_data['y'][:]]
 	data[1] = [d[0] for d in data[1]]
