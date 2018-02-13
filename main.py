@@ -101,11 +101,6 @@ def main():
 	#printStats(q, 0)
 	#---
 
-<<<<<<< HEAD
-	#oneTree(data[0], data[1], 3)
-
-	fullSetTrainTest(data[0], data[1])
-=======
 	#---uncomment to make and print one tree---
 	#oneTree(data[0], data[1], 3)
 	#---
@@ -115,7 +110,6 @@ def main():
 	#---
 
 	#---uncomment to save trees to pickle files---
->>>>>>> 40b898dd94d0bf5ff9c211ce4ecd8409a6c08824
 	#saveTrees("fullClean", genTrees(data[0],data[1]))
 
 	#**FOR MARKER** THIS IS HOW WE LOAD TREES AND RUN 'testTrees'
