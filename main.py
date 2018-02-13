@@ -102,7 +102,7 @@ def main():
 	#---
 
 	#---uncomment to make and print one tree---
-	#oneTree(data[0], data[1], 3)
+	oneTree(data[0], data[1], 3)
 	#---
 
 	#---uncomment to train and test on full data---
