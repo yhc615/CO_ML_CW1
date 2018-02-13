@@ -93,19 +93,31 @@ def oneTree(x2, y2, emote):
 def main():
 	raw_data = scipy.io.loadmat('Data/cleandata_students.mat')
 	data = [raw_data['x'][:],raw_data['y'][:]]
-	data[1] = [x[0] for x in data[1]]
+	data[1] = [d[0] for d in data[1]]
 
+	#---uncomment to do cross val on data---
 	#q = crossValidation(10, data[0], data[1])
 	#print("\nTotal:")
 	#printStats(q, 0)
+	#---
 
-	oneTree(data[0], data[1], 3)
+	#---uncomment to make and print one tree---
+	#oneTree(data[0], data[1], 3)
+	#---
 
+	#---uncomment to train and test on full data---
 	#fullSetTrainTest(data[0], data[1])
+	#---
+
+	#---uncomment to save trees to pickle files---
 	#saveTrees("fullClean", genTrees(data[0],data[1]))
+
+	#**FOR MARKER** THIS IS HOW WE LOAD TREES AND RUN 'testTrees'
+	#---uncomment to load trees from trees folder and predict on data---
 	#trees = loadTrees("fullClean")
 	#predicts = testTrees(trees, data[0])
 	#printStats(confusionMatrix(data[1], predicts), 0)
+	#---
 
 
 if __name__ == "__main__":
