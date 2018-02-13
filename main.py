@@ -99,9 +99,9 @@ def main():
 	#print("\nTotal:")
 	#printStats(q, 0)
 
-	oneTree(data[0], data[1], 3)
+	#oneTree(data[0], data[1], 3)
 
-	#fullSetTrainTest(data[0], data[1])
+	fullSetTrainTest(data[0], data[1])
 	#saveTrees("fullClean", genTrees(data[0],data[1]))
 	#trees = loadTrees("fullClean")
 	#predicts = testTrees(trees, data[0])
