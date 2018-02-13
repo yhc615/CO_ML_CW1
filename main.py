@@ -97,7 +97,7 @@ def main():
 
 	q = crossValidation(10, data[0], data[1])
 	print("\nTotal:")
-	printStats(q, 1)
+	printStats(q, 0)
 
 	#oneTree(data[0], data[1], 3)
 
