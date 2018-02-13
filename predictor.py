@@ -15,16 +15,15 @@ def ambiguityStrat(matches, depths, strat):
 		if strat==0:
 			return random.choice(positives)
 		elif strat==1:
-			return matches.index(1)+1
+			return positives[depths.index(min(depths))]
 		elif strat==2:
+			return matches.index(1)+1
+		elif strat==3:
 			if len(positives)>1 and 6 in positives:
 				positives.remove(6)
 			if len(positives)>1 and 5 in positives:
 				positives.remove(5)
 			return random.choice(positives)
-		elif strat==3:
-			return positives[depths.index(min(depths))]
-
 	return random.choice(list(range(1,7)))
 
 def testTrees(T, x2):
@@ -32,5 +31,5 @@ def testTrees(T, x2):
 	for x in x2:
 		emotePredicts = [predictor(x, tree, 0) for tree in T]
 		e,d = zip(*emotePredicts)
-		predictions.append(ambiguityStrat(e,d,3))
+		predictions.append(ambiguityStrat(e,d,1))
 	return predictions
